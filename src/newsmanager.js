@@ -11,6 +11,7 @@
       },
 
       getArticles: function(GuardianApiResponse) {
+        console.log('inside')
         var self = this;
         GuardianApiResponse.forEach(function(article) {
           var field = article.fields;

@@ -1,7 +1,7 @@
 (function(exports) {
 
   function Api() {
-    this.data = []
+    this.data = [];
   }
 
   Api.prototype.fetchData = function() {
@@ -9,9 +9,7 @@
       var xhr = new XMLHttpRequest();
 
       xhr.onload = function() {
-        // console.log(xhr)
         var request = JSON.parse(xhr.response);
-        console.log(request.response.results);
 
         self.data = request.response.results;
       };

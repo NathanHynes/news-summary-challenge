@@ -2,24 +2,34 @@
 (function(exports){
 
   function News(headline, articleLink, image) {
-    var headline = headline;
-    var articleLink = articleLink
-    var image = image
+    this.headline = headline;
+    this.articleLink = articleLink
+    this.image = image
+    this.summary = ''
+  }
+    News.prototype =  {
+      getHeadline: function(){
+        return this.headline;
+      },
+      getArticleLink: function() {
+        return this.articleLink;
+      },
+      getImage: function() {
+        return this.image;
+      },
+      getSummary:function() {
+        var self = this;
+        var xhr = new XMLHttpRequest();
 
-    return {
-      headline: function(){
-        return headline
-      },
-      articleLink: function() {
-        return articleLink
-      },
-      image: function() {
-        return image
+        xhr.onload = function() {
+          var request = JSON.parse(xhr.response);
+
+          self.summary = request.text
+        };
+        xhr.open('GET', `http://news-summary-api.herokuapp.com/aylien?apiRequestUrl=https://api.aylien.com/api/v1/summarize?url=${self.articleLink}`);
+        xhr.send();
       }
     }
-
-  }
-
   exports.News = News;
 
 })(this);
